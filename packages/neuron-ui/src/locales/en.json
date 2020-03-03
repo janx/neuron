@@ -243,7 +243,7 @@
       "backup": {
         "title": "Backup the {{name}} wallet"
       },
-      "unlock":{
+      "unlock": {
         "title": "Please input wallet password to claim the asset"
       }
     },
@@ -450,6 +450,13 @@
       "experimental": "Experimental"
     },
     "s-udt": {
+      "prompt": {
+        "offline": "TODO",
+        "sync-not-start": "TODO",
+        "syncing": "Syncing, current data may be inaccurate",
+        "has-no-s-udt": "No sUDT asset has been detected",
+        "has-s-udt": "Your sUDT assets are listed below"
+      },
       "update-dialog": {
         "title": "Update Token Information",
         "copy-uuid": "Copy UUID",
