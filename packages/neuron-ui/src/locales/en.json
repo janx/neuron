@@ -448,6 +448,16 @@
       "release-success": "Asset was released, view details in History.",
       "no-special-assets": "No customized assets",
       "experimental": "Experimental"
+    },
+    "s-udt": {
+      "update-dialog": {
+        "title": "Update Token Information",
+        "copy-uuid": "Copy UUID",
+        "name": "Full Name",
+        "symbol": "Symbol",
+        "decimal": "Decimal",
+        "update": "Update"
+      }
     }
   }
 }

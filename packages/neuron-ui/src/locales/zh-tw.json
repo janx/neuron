@@ -448,6 +448,16 @@
       "release-success": "資產已解鎖，可前往交易歷史查看詳情。",
       "no-special-assets": "沒有自定義資產",
       "experimental": "實驗室"
+    },
+    "s-udt": {
+      "update-dialog": {
+        "title": "更新 Token 信息",
+        "copy-uuid": "複製 UUID",
+        "name": "名稱",
+        "symbol": "標誌",
+        "decimal": "小數位",
+        "update": "更新"
+      }
     }
   }
 }

@@ -448,6 +448,16 @@
       "release-success": "资产已解锁，可前往交易历史查看详情。",
       "no-special-assets": "没有自定义资产",
       "experimental": "实验室"
+    },
+    "s-udt": {
+      "update-dialog": {
+        "title": "更新 Token 信息",
+        "copy-uuid": "复制 UUID",
+        "name": "名称",
+        "symbol": "标志",
+        "decimal": "小数位",
+        "update": "更新"
+      }
     }
   }
 }
