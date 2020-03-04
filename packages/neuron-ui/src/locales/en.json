@@ -243,7 +243,7 @@
       "backup": {
         "title": "Backup the {{name}} wallet"
       },
-      "unlock":{
+      "unlock": {
         "title": "Please input wallet password to claim the asset"
       }
     },
@@ -269,7 +269,8 @@
       "edit": "Edit",
       "delete": "Delete",
       "click-to-edit": "Click to edit",
-      "notice": "Notice"
+      "notice": "Notice",
+      "experimental": "Experimental"
     },
     "notification-panel": {
       "title": "Notifications"
@@ -293,6 +294,7 @@
       "remain-ckb-for-withdraw": "It's suggested to reserve some CKBytes for withdraw operation",
       "no-valid-addresses-found": "No valid addresses found",
       "full-addr-info": "Additional software or dApp interface might be required to operate the assets on this address. Please double check its validity.",
+      "experimental-message": "This is an experimental feature, it could change at any time. Please use with caution.",
       "fields": {
         "wallet": "Wallet",
         "name": "Name",
