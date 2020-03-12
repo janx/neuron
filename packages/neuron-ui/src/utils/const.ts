@@ -124,3 +124,9 @@ export enum SyncStatus {
 export enum PRESET_SCRIPT {
   Locktime = 'SingleMultiSign',
 }
+
+export enum CompensationPeriod {
+  SUGGEST_START = 0.767,
+  REQUEST_START = 0.967,
+  REQUEST_END = 1,
+}
