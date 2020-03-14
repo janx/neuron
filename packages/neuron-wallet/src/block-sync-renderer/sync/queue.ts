@@ -15,6 +15,7 @@ import logger from 'utils/logger'
 import RangeForCheck, { CheckResultType } from './range-for-check'
 import TxAddressFinder from './tx-address-finder'
 import SystemScriptInfo from 'models/system-script-info'
+import SyncController from 'controllers/sync'
 
 export default class Queue {
   private lockHashes: string[]
@@ -79,6 +80,8 @@ export default class Queue {
           logger.debug(`Sync:\terror:`, err)
         } else {
           logger.error(`Sync:\terror:`, err)
+          const res = new SyncController().restart()
+          logger.warn(`sync restarted ${res}`)
         }
       } finally {
         await CommonUtils.sleep(this.yieldTime)

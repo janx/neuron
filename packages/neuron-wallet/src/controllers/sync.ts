@@ -17,6 +17,16 @@ export default class SyncController {
     }
   }
 
+  public async restart() {
+    killBlockSyncTask()
+    await createBlockSyncTask(true)
+
+    return {
+      status: ResponseCode.Success,
+      result: true
+    }
+  }
+
   public async currentBlockNumber() {
     const blockNumber = new SyncedBlockNumber()
     const current: bigint = await blockNumber.getNextBlock()

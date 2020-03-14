@@ -58,5 +58,7 @@
   "resolutions": {
     "@types/node": "12.12.14"
   },
-  "dependencies": {}
+  "dependencies": {
+    "yarn": "^1.22.4"
+  }
 }

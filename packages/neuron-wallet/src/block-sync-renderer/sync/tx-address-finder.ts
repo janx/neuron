@@ -1,7 +1,9 @@
+import Timeout from 'await-timeout'
 import { getConnection } from 'typeorm'
 import OutputEntity from 'database/chain/entities/output'
 import NetworksService from 'services/networks'
 import { AddressPrefix } from 'models/keys/address'
+import Input from 'models/chain/input'
 import Output from 'models/chain/output'
 import OutPoint from 'models/chain/out-point'
 import Transaction from 'models/chain/transaction'
@@ -59,6 +61,17 @@ export default class TxAddressFinder {
     return [shouldSync, outputs]
   }
 
+  private findOutput = async (input: Input): Promise<any> => {
+    const outPoint: OutPoint = input.previousOutput!
+    const output = await getConnection()
+      .getRepository(OutputEntity)
+      .findOne({
+        outPointTxHash: outPoint.txHash,
+        outPointIndex: outPoint.index,
+      })
+    return output
+  }
+
   private selectInputAddresses = async (): Promise<[boolean, string[]]> => {
     const addresses: string[] = []
     const inputs = this.tx.inputs!.filter(i => i.previousOutput !== null)
@@ -66,25 +79,28 @@ export default class TxAddressFinder {
 
     let shouldSync = false
     for (const input of inputs) {
-      const outPoint: OutPoint = input.previousOutput!
-      const output = await getConnection()
-        .getRepository(OutputEntity)
-        .findOne({
-          outPointTxHash: outPoint.txHash,
-          outPointIndex: outPoint.index,
-        })
-      if (output && this.lockHashes.has(output.lockHash)) {
-        shouldSync = true
-        addresses.push(
-          AddressGenerator.generate(output.lock, prefix)
-        )
-      }
-      if (output && SystemScriptInfo.isMultiSignScript(output.lock)) {
-        const multiSignBlake160 = output.lock.args.slice(0, 42)
-        if (this.multiSignBlake160s.has(multiSignBlake160)) {
+      const timer = new Timeout();
+      try {
+        const output = await Promise.race([
+          this.findOutput(input),
+          timer.set(5000, 'Query hangs ... retry.')
+        ])
+
+        if (output && this.lockHashes.has(output.lockHash)) {
           shouldSync = true
-          input.setMultiSignBlake160(multiSignBlake160)
+          addresses.push(
+            AddressGenerator.generate(output.lock, prefix)
+          )
         }
+        if (output && SystemScriptInfo.isMultiSignScript(output.lock)) {
+          const multiSignBlake160 = output.lock.args.slice(0, 42)
+          if (this.multiSignBlake160s.has(multiSignBlake160)) {
+            shouldSync = true
+            input.setMultiSignBlake160(multiSignBlake160)
+          }
+        }
+      } finally {
+        timer.clear()
       }
     }
 
